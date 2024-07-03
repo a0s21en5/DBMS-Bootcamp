@@ -1,1 +1,0 @@
-# The-Complete-DBMS-Bootcamp
