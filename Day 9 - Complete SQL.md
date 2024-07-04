@@ -102,3 +102,89 @@ Fixed datatypes in SQL (e.g., `CHAR`, `BINARY`, `DATE`) store data of fixed leng
 ### Advanced datatype - JSON
 
 JSON (JavaScript Object Notation) in SQL stores semi-structured or unstructured data flexibly. It supports complex nested structures and allows easy parsing and manipulation, ideal for evolving data schemas.
+
+## Types of SQL Commands
+
+## DDL (Data Definition Language)
+
+DDL commands are used for defining the structure of the database.
+
+### CREATE
+
+- **CREATE TABLE**: Create a new table.
+- **CREATE DATABASE**: Create a new database.
+- **CREATE VIEW**: Create a virtual table based on the result-set of a SELECT statement.
+
+### ALTER TABLE
+
+- Modify the structure of an existing table, such as changing column data types or adding/removing columns.
+
+### DROP
+
+- **DROP TABLE**: Delete a table and its data.
+- **DROP DATABASE**: Delete a database and its contents.
+- **DROP VIEW**: Delete a view.
+
+### TRUNCATE
+
+- Remove all rows from a table, but keep the table structure intact.
+
+### RENAME
+
+- Rename a database, table, or column.
+
+## DRL/DQL (Data Retrieval Language / Data Query Language)
+
+These commands are used to retrieve data from the database.
+
+- **SELECT**: Retrieve data from one or more tables.
+
+## DML (Data Manipulation Language)
+
+DML commands are used for modifying data in the database.
+
+- **INSERT**: Insert new rows into a table.
+- **UPDATE**: Modify existing data in a table.
+- **DELETE**: Remove rows from a table.
+
+## DCL (Data Control Language)
+
+DCL commands are used to control access to data within the database.
+
+- **GRANT**: Provide specific privileges to database users.
+- **REVOKE**: Remove specific privileges from database users.
+
+## TCL (Transaction Control Language)
+
+TCL commands manage transactions within the database.
+
+- **START TRANSACTION**: Begin a transaction.
+- **COMMIT**: Apply all changes made during the transaction and end it.
+- **ROLLBACK**: Discard changes made during the transaction and end it.
+- **SAVEPOINT**: Set a point within the transaction to which you can roll back.
+
+## Managing Databases (DDL)
+
+These commands manage databases and their structure.
+
+- **CREATE DATABASE IF NOT EXISTS db-name;**: Create a new database if it doesn't already exist.
+- **USE db-name;**: Select a database to work with.
+- **DROP DATABASE IF EXISTS db-name;**: Delete a database if it exists.
+- **SHOW DATABASES;**: List all databases on the server.
+- **SHOW TABLES;**: List all tables in the selected database.
+
+## DATA RETRIEVAL LANGUAGE (DRL)
+
+1. **Syntax**: `SELECT <set of column names> FROM <table_name>;`
+
+2. **Order of execution**: DRL commands are executed from RIGHT to LEFT.
+
+3. **Can we use SELECT keyword without using FROM clause?**
+   - Yes, using **DUAL Tables**.
+   - DUAL tables are dummy tables created by MySQL, allowing users to perform certain actions without referring to user-defined tables.
+   - Examples:
+     - `SELECT 55 + 11;`
+     - `SELECT NOW();`
+     - `SELECT UCASE('hello');`
+
+   DUAL tables are particularly useful for performing calculations or retrieving system-specific values without needing an actual table reference.
