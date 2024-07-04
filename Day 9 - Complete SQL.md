@@ -55,3 +55,50 @@ SQL is Structured Query language used to perform CRUD operations in R-DB, while 
 - **Performance**: NoSQL databases are typically optimized for scalability and performance with large datasets, making them suitable for big data applications compared to SQL databases.
 
 - **Examples**: SQL databases include PostgreSQL, MySQL, and MS SQL Server, while NoSQL databases include MongoDB, Cassandra, and HBase, each tailored to different data storage and retrieval needs.
+
+## SQL Data Types
+
+In SQL databases, data is stored in tables where each column is defined with a specific data type that determines the kind of data it can hold. SQL supports various data types, categorized into strings, integers, decimals, and more.
+
+### String Data Types
+
+- **CHAR(size)**: Fixed-length string from 0 to 255 characters.
+- **VARCHAR(size)**: Variable-length string from 0 to 255 characters.
+- **TINYTEXT**: String with a maximum length of 255 characters.
+- **TEXT**: String with a maximum length of 65,535 characters.
+- **BLOB**: Binary large object, storing up to 65,535 bytes.
+- **MEDIUMTEXT**: String with a maximum length of 16,777,215 characters.
+- **MEDIUMBLOB**: Binary large object, storing up to 16,777,215 bytes.
+- **LONGTEXT**: String with a maximum length of 4,294,967,295 characters.
+- **LONGBLOB**: Binary large object, storing up to 4,294,967,295 bytes.
+
+### Integer Data Types
+
+- **TINYINT**: Integer from -128 to 127.
+- **SMALLINT**: Integer from -32,768 to 32,767.
+- **MEDIUMINT**: Integer from -8,388,608 to 8,388,607.
+- **INT**: Integer from -2,147,483,648 to 2,147,483,647.
+- **BIGINT**: Integer from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807.
+
+### Decimal Data Types
+
+- **FLOAT**: Floating-point number with up to 7 significant digits.
+- **DOUBLE**: Double-precision floating-point number with up to 15 significant digits.
+
+### Additional Details
+
+- **Size hierarchy**: TINY < SMALL < MEDIUM < INT < BIGINT.
+- **Variable length**: Variable-length data types like VARCHAR are preferred for storing data that varies in length, optimizing storage space.
+- **Unsigned values**: Some integer types can be declared as unsigned (e.g., `INT UNSIGNED`), allowing them to store only non-negative numbers, effectively doubling their range of positive values.
+
+### Variable datatype
+
+Variable datatypes in SQL (e.g., `VARCHAR`, `VARBINARY`, `TEXT`) store variable-length data like strings or binary data. They accommodate varying data lengths across entries, optimizing storage efficiency.
+
+### Fixed datatype
+
+Fixed datatypes in SQL (e.g., `CHAR`, `BINARY`, `DATE`) store data of fixed lengths, ensuring consistent storage size per entry. They are ideal when precise data size is known, optimizing storage and retrieval.
+
+### Advanced datatype - JSON
+
+JSON (JavaScript Object Notation) in SQL stores semi-structured or unstructured data flexibly. It supports complex nested structures and allows easy parsing and manipulation, ideal for evolving data schemas.
