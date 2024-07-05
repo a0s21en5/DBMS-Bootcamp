@@ -210,26 +210,26 @@ These commands manage databases and their structure.
    - Example:
 
      ```sql
-     SELECT * FROM officers WHERE officer_name IN ('Lakshay', 'Maharana Pratap', 'Deepika');
+     SELECT * FROM Worker WHERE DEPARTMENT IN ('Finance','Sales')
      ```
 
 7. **AND/OR/NOT**
    - **AND**: Combines multiple conditions where all must be true.
 
      ```sql
-     WHERE cond1 AND cond2
+     SELECT * FROM Worker WHERE DEPARTMENT = 'Finance' AND FIRST_NAME = 'Michael'
      ```
 
    - **OR**: Combines multiple conditions where at least one must be true.
 
      ```sql
-     WHERE cond1 OR cond2
+     SELECT * FROM Worker WHERE DEPARTMENT = 'Finance' OR DEPARTMENT = 'Sales'
      ```
 
    - **NOT**: Negates a condition.
 
      ```sql
-     WHERE col_name NOT IN (1, 2, 3, 4);
+     SELECT * FROM Worker WHERE DEPARTMENT NOT IN ('Finance','Sales')
      ```
 
 8. **IS NULL**
@@ -237,5 +237,5 @@ These commands manage databases and their structure.
    - Example:
 
      ```sql
-     SELECT * FROM customer WHERE prime_status IS NULL;
+     SELECT * FROM Worker WHERE SALARY IS NULL
      ```
