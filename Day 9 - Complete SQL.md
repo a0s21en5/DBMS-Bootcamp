@@ -239,3 +239,22 @@ These commands manage databases and their structure.
      ```sql
      SELECT * FROM Worker WHERE SALARY IS NULL
      ```
+
+9. **Pattern Searching / Wildcard (`%`, `_`)**
+   - `%`: Matches any sequence of characters (including zero characters).
+   - `_`: Matches exactly one character.
+   - Example:
+
+     ```sql
+     SELECT * FROM customer WHERE name LIKE '%p_';
+     ```
+
+10. **ORDER BY**
+    - Sorting the data retrieved using the `ORDER BY` clause.
+    - `ORDER BY <column-name> DESC;` sorts in descending order.
+    - `DESC` = Descending and `ASC` = Ascending.
+    - Example:
+
+      ```sql
+      SELECT * FROM customer ORDER BY name DESC;
+      ```
