@@ -321,3 +321,91 @@ These commands manage databases and their structure.
     - `HAVING` is used to filter groups after the grouping has been applied using `GROUP BY`.
     - `HAVING` requires `GROUP BY` to be present in the query, whereas `WHERE` can be used without `GROUP BY`.
     - `WHERE` can be used with `SELECT`, `UPDATE`, and `DELETE` statements, while `GROUP BY` is typically used with `SELECT` for grouping data.
+
+## DATA DEFINITION LANGUAGE (DDL)
+
+1. **Primary Key**
+   - A primary key (PK) uniquely identifies each record in a table.
+   - It must be unique and not null.
+   - Each table can have only one primary key.
+   - Example:
+
+     ```sql
+     CREATE TABLE Customers (
+         id INT PRIMARY KEY,
+         first_name VARCHAR(50),
+         last_name VARCHAR(50),
+         email VARCHAR(255)
+     );
+     ```
+
+2. **Foreign Key**
+   - A foreign key (FK) establishes a link between two tables by referencing the primary key of another table.
+   - Each relationship can have any number of foreign keys.
+   - Example:
+
+     ```sql
+     CREATE TABLE Orders (
+         id INT PRIMARY KEY,
+         delivery_date DATE,
+         order_placed_date DATE,
+         cust_id INT,
+         FOREIGN KEY (cust_id) REFERENCES Customers(id)
+     );
+     ```
+
+3. **Unique Constraint**
+   - Ensures that all values in a column (or a set of columns) are unique.
+   - Null values are allowed unless specified otherwise.
+   - Example:
+
+     ```sql
+     CREATE TABLE Customers (
+         id INT PRIMARY KEY,
+         name VARCHAR(255),
+         email VARCHAR(1024) UNIQUE,
+         -- Other columns
+     );
+     ```
+
+4. **Check Constraint**
+   - Specifies a condition that must be true for each row in a table.
+   - Example:
+
+     ```sql
+     CREATE TABLE Customers (
+         id INT PRIMARY KEY,
+         name VARCHAR(255),
+         age INT,
+         CONSTRAINT age_check CHECK (age > 12),
+         -- Other columns
+     );
+     ```
+
+5. **Default Constraint**
+   - Specifies a default value for a column when no other value is specified.
+   - Example:
+
+     ```sql
+     CREATE TABLE Accounts (
+         id INT PRIMARY KEY,
+         account_number VARCHAR(20),
+         balance DECIMAL(10, 2),
+         saving_rate DOUBLE NOT NULL DEFAULT 4.25,
+         -- Other columns
+     );
+     ```
+
+6. **Attribute as Primary Key and Foreign Key**
+   - An attribute can serve as both a primary key and a foreign key within a table, linking it to another table's primary key.
+   - Example:
+
+     ```sql
+     CREATE TABLE Orders (
+         id INT PRIMARY KEY,
+         delivery_date DATE,
+         order_placed_date DATE,
+         cust_id INT,
+         FOREIGN KEY (cust_id) REFERENCES Customers(id)
+     );
+     ```
