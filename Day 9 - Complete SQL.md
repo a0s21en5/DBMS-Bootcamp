@@ -188,3 +188,54 @@ These commands manage databases and their structure.
      - `SELECT UCASE('hello');`
 
    DUAL tables are particularly useful for performing calculations or retrieving system-specific values without needing an actual table reference.
+
+4. **WHERE Clause**
+   - The `WHERE` clause is used to filter records based on specified conditions. It enables you to retrieve only those rows that meet the criteria specified after the `WHERE` keyword.
+   - Example:
+
+     ```sql
+     SELECT * FROM Worker WHERE SALARY > 53000;
+     ```
+
+5. **BETWEEN Operator**
+   - The BETWEEN operator selects values within a specified range. It is inclusive of the endpoints defined in the range.
+   - Example:
+
+     ```sql
+     SELECT * FROM Worker WHERE SALARY BETWEEN 50000 AND 55000;
+     ```
+
+6. **IN Operator**
+   - The `IN` operator reduces the need for multiple `OR` conditions by allowing you to specify multiple values in a single `WHERE` clause.
+   - Example:
+
+     ```sql
+     SELECT * FROM officers WHERE officer_name IN ('Lakshay', 'Maharana Pratap', 'Deepika');
+     ```
+
+7. **AND/OR/NOT**
+   - **AND**: Combines multiple conditions where all must be true.
+
+     ```sql
+     WHERE cond1 AND cond2
+     ```
+
+   - **OR**: Combines multiple conditions where at least one must be true.
+
+     ```sql
+     WHERE cond1 OR cond2
+     ```
+
+   - **NOT**: Negates a condition.
+
+     ```sql
+     WHERE col_name NOT IN (1, 2, 3, 4);
+     ```
+
+8. **IS NULL**
+   - The `IS NULL` operator is used to filter records where a specific column has no value (NULL).
+   - Example:
+
+     ```sql
+     SELECT * FROM customer WHERE prime_status IS NULL;
+     ```
