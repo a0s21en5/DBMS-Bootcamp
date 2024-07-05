@@ -258,3 +258,66 @@ These commands manage databases and their structure.
       ```sql
       SELECT * FROM customer ORDER BY name DESC;
       ```
+
+11. **DISTINCT**
+    - Finds distinct values in a specified column or set of columns.
+    - Syntax: `SELECT DISTINCT(col_name) FROM table_name;`
+    - `GROUP BY` can also be used for the same purpose:
+
+      ```sql
+      SELECT DISTINCT DEPARTMENT FROM Worker;
+      ```
+
+      This produces the same output as the `DISTINCT` query.
+    - SQL optimizes queries and understands that if you use `GROUP BY` without aggregation functions, you typically mean to retrieve distinct values.
+
+12. **GROUP BY**
+    - The `GROUP BY` clause is used to collect data from multiple records and group the result by one or more columns.
+    - It is generally used in a `SELECT` statement to group rows that have the same values into summary rows.
+    - Example:
+
+      ```sql
+      SELECT DEPARTMENT, COUNT(DEPARTMENT) AS NumWorkers FROM Worker GROUP BY DEPARTMENT;
+      ```
+
+      ```sql
+      SELECT DEPARTMENT, SUM(SALARY) AS TotalSalary FROM Worker GROUP BY DEPARTMENT;
+      ```
+
+      ```sql
+      SELECT DEPARTMENT, AVG(SALARY) AS AverageSalary FROM Worker GROUP BY DEPARTMENT;
+      ```
+
+      ```sql
+      SELECT DEPARTMENT, MIN(SALARY) AS MinSalary FROM Worker GROUP BY DEPARTMENT;
+      ```
+
+      ```sql
+      SELECT DEPARTMENT, MAX(SALARY) AS MaxSalary FROM Worker GROUP BY DEPARTMENT;
+      ```
+
+    - All column names mentioned in the `SELECT` statement must be repeated in the `GROUP BY` clause to successfully execute the query.
+    - `GROUP BY` is often used with aggregation functions to perform actions like counting, summing, averaging, finding minimum or maximum values:
+      1. `COUNT()`
+      2. `SUM()`
+      3. `AVG()`
+      4. `MIN()`
+      5. `MAX()`
+
+13. **GROUP BY HAVING**
+    - The `HAVING` clause is used in combination with the `GROUP BY` clause to filter group rows based on a specified condition.
+    - It is similar to the `WHERE` clause but operates on grouped records rather than individual rows.
+    - Example:
+
+      ```sql
+      SELECT DEPARTMENT FROM Worker GROUP BY DEPARTMENT HAVING COUNT(DEPARTMENT) > 3;
+      ```
+
+    - `HAVING` is used to filter groups after the `GROUP BY` operation has been performed.
+
+14. **WHERE vs HAVING**
+    - Both `WHERE` and `HAVING` clauses are used for filtering rows based on conditions.
+    - `WHERE` is used to filter rows before any grouping is done.
+    - `HAVING` is used to filter groups after the grouping has been applied using `GROUP BY`.
+    - `HAVING` requires `GROUP BY` to be present in the query, whereas `WHERE` can be used without `GROUP BY`.
+    - `WHERE` can be used with `SELECT`, `UPDATE`, and `DELETE` statements, while `GROUP BY` is typically used with `SELECT` for grouping data.
