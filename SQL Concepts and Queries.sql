@@ -105,3 +105,32 @@ SELECT DEPARTMENT, MAX(SALARY) AS MaxSalary FROM Worker GROUP BY DEPARTMENT;
 
 -- Select departments with more than 3 workers
 SELECT DEPARTMENT FROM Worker GROUP BY DEPARTMENT HAVING COUNT(DEPARTMENT) > 3;
+
+
+-- Create Table Account
+Create Table Account(
+	AccountId INT PRIMARY KEY,
+	Name VARCHAR(255),
+	Balance INT NOT NULL DEFAULT 0
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

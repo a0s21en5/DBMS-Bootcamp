@@ -409,3 +409,28 @@ These commands manage databases and their structure.
          FOREIGN KEY (cust_id) REFERENCES Customers(id)
      );
      ```
+
+## ALTER OPERATIONS
+
+1. **Changes Schema**
+2. **ADD**
+    1. Add new column.
+    2. `ALTER TABLE table_name ADD new_col_name datatype, ADD new_col_name_2 datatype;`
+    3. e.g., `ALTER TABLE customer ADD age INT NOT NULL;`
+3. **MODIFY**
+    1. Change datatype of an attribute.
+    2. `ALTER TABLE table_name MODIFY col_name col_datatype;`
+    3. e.g., `VARCHAR` TO `CHAR`:
+        `ALTER TABLE customer MODIFY name CHAR(1024);`
+4. **CHANGE COLUMN**
+    1. Rename column name.
+    2. `ALTER TABLE table_name CHANGE COLUMN old_col_name new_col_name new_col_datatype;`
+    3. e.g., `ALTER TABLE customer CHANGE COLUMN name customer_name VARCHAR(1024);`
+5. **DROP COLUMN**
+    1. Drop a column completely.
+    2. `ALTER TABLE table_name DROP COLUMN col_name;`
+    3. e.g., `ALTER TABLE customer DROP COLUMN middle_name;`
+6. **RENAME**
+    1. Rename table name itself.
+    2. `ALTER TABLE table_name RENAME TO new_table_name;`
+    3. e.g., `ALTER TABLE customer RENAME TO customer_details;`
