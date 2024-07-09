@@ -434,3 +434,265 @@ These commands manage databases and their structure.
     1. Rename table name itself.
     2. `ALTER TABLE table_name RENAME TO new_table_name;`
     3. e.g., `ALTER TABLE customer RENAME TO customer_details;`
+
+## DATA MANIPULATION LANGUAGE (DML)
+
+1. **INSERT**
+    1. `INSERT INTO table_name (col1, col2, col3) VALUES (v1, v2, v3), (val1, val2, val3);`
+
+2. **UPDATE**
+    1. `UPDATE table_name SET col1 = 1, col2 = 'abc' WHERE id = 1;`
+    2. Update multiple rows e.g.,
+        1. `UPDATE student SET standard = standard + 1;`
+    3. **ON UPDATE CASCADE**
+        1. Can be added to the table while creating constraints. Suppose there is a situation where we have two tables such that the primary key of one table is the foreign key for another table. If we update the primary key of the first table, then using the `ON UPDATE CASCADE` foreign key of the second table automatically gets updated.
+
+3. **DELETE**
+    1. `DELETE FROM table_name WHERE id = 1;`
+    2. `DELETE FROM table_name;` (all rows will be deleted)
+    3. **DELETE CASCADE** - (to overcome DELETE constraint of Referential constraints)
+        1. What would happen to a child entry if a parent table’s entry is deleted?
+        2.
+
+            ```sql
+            CREATE TABLE ORDER (
+                order_id int PRIMARY KEY,
+                delivery_date DATE,
+                cust_id INT,
+                FOREIGN KEY (cust_id) REFERENCES customer (id) ON DELETE CASCADE
+            );
+            ```
+
+    4. **ON DELETE SET NULL** - (can FK have null values?)
+        1.
+            ```sql
+            CREATE TABLE ORDER (
+                order_id int PRIMARY KEY,
+                delivery_date DATE,
+                cust_id INT,
+                FOREIGN KEY (cust_id) REFERENCES customer (id) ON DELETE SET NULL
+            );
+            ```
+
+4. **REPLACE**
+    1. Primarily used for an already present tuple in a table.
+    2. As `UPDATE`, using `REPLACE` with the help of `WHERE` clause in PK, then that row will be replaced.
+    3. As `INSERT`, if there is no duplicate data, a new tuple will be inserted.
+    4. `REPLACE INTO student (id, class) VALUES(4, 3);`
+    5. `REPLACE INTO table_name SET col1 = val1, col2 = val2;`
+
+## JOINING TABLES
+
+1. All RDBMS are relational in nature, we refer to other tables to get meaningful outcomes.
+2. Foreign Keys (FK) are used to reference other tables.
+
+3. **INNER JOIN**
+    1. Returns a resultant table that has matching values from both the tables or all the tables.
+    2.
+
+        ```sql
+        SELECT column_list FROM table1 
+        INNER JOIN table2 ON condition1
+        INNER JOIN table3 ON condition2
+        …;
+        ```
+
+    3. **Alias in MySQL (AS)**
+        1. Aliases in MySQL are used to give a temporary name to a table or a column in a table for the purpose of a particular query. It works as a nickname for expressing the tables or column names. It makes the query short and neat.
+        2.
+
+            ```sql
+            SELECT col_name AS alias_name FROM table_name;
+            ```
+
+        3.
+
+            ```sql
+            SELECT col_name1, col_name2,... FROM table_name AS alias_name;
+            ```
+
+4. **OUTER JOIN**
+    1. **LEFT JOIN**
+        1. This returns a resulting table with all the data from the left table and the matched data from the right table.
+        2.
+
+            ```sql
+            SELECT columns FROM table1 
+            LEFT JOIN table2 ON join_condition;
+            ```
+
+    2. **RIGHT JOIN**
+        1. This returns a resulting table with all the data from the right table and the matched data from the left table.
+        2.
+
+            ```sql
+            SELECT columns FROM table1 
+            RIGHT JOIN table2 ON join_condition;
+            ```
+
+    3. **FULL JOIN**
+        1. This returns a resulting table that contains all data when there is a match on left or right table data.
+        2. Emulated in MySQL using LEFT and RIGHT JOIN.
+        3.
+
+            ```sql
+            SELECT columns FROM table1 as t1 
+            LEFT JOIN table2 as t2 ON t1.id = t2.id
+            UNION
+            SELECT columns FROM table1 as t1 
+            RIGHT JOIN table2 as t2 ON t1.id = t2.id;
+            ```
+
+        4. `UNION ALL` can also be used; this will duplicate values as well while `UNION` gives unique values.
+
+5. **CROSS JOIN**
+    1. This returns all the Cartesian products of the data present in both tables. Hence, all possible variations are reflected in the output.
+    2. Used rarely in practical purposes.
+    3. If Table-1 has 10 rows and Table-2 has 5, then the resultant would have 50 rows.
+    4.
+
+        ```sql
+        SELECT column_list FROM table1 
+        CROSS JOIN table2;
+        ```
+
+6. **SELF JOIN**
+    1. It is used to get the output from a particular table when the same table is joined to itself.
+    2. Used very less.
+    3. Emulated using INNER JOIN.
+    4.
+
+        ```sql
+        SELECT columns FROM table1 as t1 
+        INNER JOIN table1 as t2 ON t1.id = t2.id;
+        ```
+
+7. **Join without using join keywords**
+    1.
+        ```sql
+        SELECT * FROM table1, table2
+        WHERE condition;
+        ```
+    2. e.g.,
+        ```sql
+        SELECT artist_name, album_name, year_recorded
+        FROM artist, album
+        WHERE artist.id = album.artist_id;
+        ```
+
+## SET OPERATIONS
+
+1. Used to combine multiple SELECT statements.
+2. Always gives distinct rows.
+
+3. **UNION**
+    1. Combines two or more SELECT statements.
+    2.
+
+        ```sql
+        SELECT * FROM table1
+        UNION
+        SELECT * FROM table2;
+        ```
+
+    3. Number of columns and order of columns must be the same for table1 and table2.
+
+4. **INTERSECT**
+    1. Returns common values of the tables.
+    2. Emulated.
+    3.
+
+        ```sql
+        SELECT DISTINCT column_list FROM table1 
+        INNER JOIN table2 USING(join_cond);
+        ```
+
+    4.
+
+        ```sql
+        SELECT DISTINCT * FROM table1 
+        INNER JOIN table2 USING(id);
+        ```
+
+5. **MINUS**
+    1. This operator returns the distinct rows from the first table that do not occur in the second table.
+    2. Emulated.
+    3.
+
+        ```sql
+        SELECT column_list FROM table1 
+        LEFT JOIN table2 ON condition 
+        WHERE table2.column_name IS NULL;
+        ```
+
+    4.
+
+        ```sql
+        SELECT id FROM table1 
+        LEFT JOIN table2 USING(id) 
+        WHERE table2.id IS NULL;
+        ```
+
+## SUB QUERIES
+
+1. Outer query depends on inner query.
+2. Alternative to joins.
+3. Nested queries.
+4.
+
+    ```sql
+    SELECT column_list(s) FROM table_name 
+    WHERE column_name OPERATOR
+    (SELECT column_list(s) FROM table_name [WHERE]);
+    ```
+
+5.
+
+    ```sql
+    SELECT * FROM table1 
+    WHERE col1 IN (SELECT col1 FROM table1);
+    ```
+
+6. Sub queries exist mainly in 3 clauses:
+    1. Inside a WHERE clause.
+    2. Inside a FROM clause.
+    3. Inside a SELECT clause.
+
+7. **Subquery using FROM clause**
+    1.
+        ```sql
+        SELECT MAX(rating)
+        FROM (SELECT * FROM movie WHERE country = 'India') as temp;
+        ```
+
+8. **Subquery using SELECT**
+    1.
+        ```sql
+        SELECT (SELECT column_list(s) FROM table_name WHERE condition),
+        column_list(s) FROM table2_name WHERE condition;
+        ```
+
+9. **Derived Subquery**
+    1.
+        ```sql
+        SELECT column_list(s)
+        FROM (SELECT column_list(s) FROM table_name WHERE [condition]) as new_table_name;
+        ```
+
+10. **Co-related Sub-queries**
+    1. With a normal nested subquery, the inner SELECT query runs first and executes once, returning values to be used by the main query. A correlated subquery, however, executes once for each candidate row considered by the outer query. In other words, the inner query is driven by the outer query.
+
+## JOIN VS SUB-QUERIES
+
+| JOIN                                  | SUB-QUERIES                                |
+|---------------------------------------|--------------------------------------------|
+| Combines multiple tables based on matching condition. | Combination is a resulting set from two or more SELECT statements. |
+| Column-wise combination.              | Row-wise combination.                      |
+| Data types of two tables can be different. | Data types of corresponding columns from each table should be the same. |
+| Can generate both distinct or duplicate rows. | Generates distinct rows.                   |
+| The number of columns selected may or may not be the same from each table. | The number of columns selected must be the same from each table. |
+| Combines results horizontally.        | Combines results vertically.               |
+| Faster.                               | Slower.                                    |
+| Joins maximize calculation burden on DBMS. | Keeps responsibility of calculation on user. |
+| Complex, difficult to understand and implement. | Comparatively easy to understand and implement. |
+| Choosing optimal join for optimal use case is difficult. | Easy.                                        |
