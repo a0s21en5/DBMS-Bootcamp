@@ -58,7 +58,7 @@ SELECT * FROM Worker WHERE DEPARTMENT NOT IN ('Finance', 'Sales');
 -- Select workers where salary is NULL (There are none in this dataset)
 SELECT * FROM Worker WHERE SALARY IS NULL;
 
--- Pattern Searching / Wildcard (‘%’, ‘_’)
+-- Pattern Searching / Wildcard (ï¿½%ï¿½, ï¿½_ï¿½)
 -- Select all first names from Worker table
 SELECT FIRST_NAME FROM Worker;
 
